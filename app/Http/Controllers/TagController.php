@@ -22,8 +22,8 @@ function create(){
   function testManyToMany(){
   $post2=Post::find(2);
   $post3=Post::find(3);
-  $post2->tags()->attach([1,2]);
-  $post2->tags()->attach([2]);
+  $post2->tags()->attach([3]);
+  // $post2->tags()->attach([2]);
   
 return response()->json([
   'post2'=>$post2->tags,

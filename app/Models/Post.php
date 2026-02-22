@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Comment; 
 class Post extends Model
 {
+  use HasUuids;
   protected $table='post';
+  protected $primaryKey='id';
+  protected $keyType='string';
+  public $incrementing = false;
   protected $fillable=['title','body','published','author'];
   protected $guarded=['id'];
   public function comments(){
