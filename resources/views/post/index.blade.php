@@ -5,5 +5,5 @@
     <p>{{ $post->body }}</p>
 
   @endforeach
-
+{{$posts->links()}}
 </x-layout>
