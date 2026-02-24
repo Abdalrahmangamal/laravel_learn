@@ -1,31 +1,69 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Post;
 
+use Illuminate\Http\Request;
+use App\Models\Post;
 class PostController extends Controller
 {
-function index(){
-  $data=Post::cursorPaginate(2);
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+          $data=Post::Paginate(10);
   return view('post.index',[ 'posts'=>$data,"title"=>"Ramadan"]);
-}
-function show($id){
-  $data=Post::findOrFail($id);
-  RETURN view('post.show',['post'=>$data,"title"=>"single post"]);
-}
-function create(){
-  // Post::create([
-  //   "title"=>"Post 2",
-  //   "body"=>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.",
-  //   "published"=>1,
-  //   "author"=>"John Doe 2"
-  // ]);
-   
-  Post::factory(100)->create();
 
-  return redirect("/blog");
-  }
-  function delete(){
-     Post::destroy(1);
-  }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('post.create',['title'=>"create new post"]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+                return view('post.edit',['title'=>"edit post"]);
+
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+          $data=Post::findOrFail($id);
+  return view('post.show',['post'=>$data,"title"=>"single post"]);
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
 }

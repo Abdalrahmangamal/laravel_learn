@@ -1,18 +1,19 @@
 <?php
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
-use App\Http\Controllers\CommentController;
 Route::get('/', [IndexController::class,'index']);
 Route::get("/about",[IndexController::class,'about']);
 Route::get("/contact",[IndexController::class,'contact']);
-Route::get("/blog",[PostController::class,'index']);
-Route::get("/tag",[TagController::class,'index']);
-Route::get("/blog/create",[PostController::class,'create']);
-Route::get("/tag/create",[TagController::class,'create']);
+
+
+// Route::get("/blog",[PostController::class,'index']);
+// Route::get("/blog/{id}",[PostController::class,'show']);
+
+Route::resource("/blog",PostController::class);
+
 Route::get("/tag/test-many-to-many",[TagController::class,'testManyToMany']);
-Route::get("/blog/{id}",[PostController::class,'show']);
 Route::get("/comments",[CommentController::class,'index']);
-Route::get("/comments/create",[CommentController::class,'create']);
-Route::get("/post/delete",[PostController::class,'delete']);
+
+
+Route::get("/tag",[TagController::class,'index']);

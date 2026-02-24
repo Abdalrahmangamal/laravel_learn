@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
-{
+{  protected $primaryKey='id';
+  protected $keyType='string';
+  public $incrementing = false; 
       protected $table='tag';
   protected $fillable=['title'];
   protected $guarded=['id'];
