@@ -1,9 +1,16 @@
 <x-layout :title="$title">
-  @foreach($posts as $post)
-    <h2>{{ $post->title }}</h2>
-    <h2>{{ $post->id }}</h2>
-    <p>{{ $post->body }}</p>
+   <a href="/blog/create"
+             class=" bg-indigo-600 text-white px-4 py-2 rounded-md text-sm mb-[20px] font-semibold shadow hover:bg-indigo-500 transition">
+            Create 
+          </a>
+          <div class="mt-[20px]">
+            @foreach($posts as $post)
+              <h2>{{ $post->title }}</h2>
+              <h2>{{ $post->id }}</h2>
+              <p>{{ $post->body }}</p>
+          
+            @endforeach
 
-  @endforeach
+          </div>
 {{$posts->links()}}
 </x-layout>

@@ -13,17 +13,17 @@ class PostApiController extends Controller
      */
     public function index()
     {
-        $data = Post::all();
+        $data = Post::paginate(25);
         return response($data, 200);
-    }
+    }   
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $post = Post::create($request->all());
-        return response($post, 201);
+        $data = Post::create($request->all());
+        return response(['data'=>$data,'message'=>'Post created successfully'], 201);
     }
 
     /**
@@ -31,7 +31,12 @@ class PostApiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = Post::find($id);
+        if (!$data) {
+            return response(["message" => "No post found"], 404);
+        } else {
+            return response($data, 200);
+        }
     }
 
     /**
@@ -39,7 +44,13 @@ class PostApiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = Post::find($id);
+        $data->update($request->all());
+        if (!$data) {
+            return response(["message" => "No post found"], 404);
+        } else {
+            return response($data, 200);
+        }
     }
 
     /**
@@ -47,6 +58,12 @@ class PostApiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = Post::find($id);
+        $data->delete();
+        if (!$data) {
+            return response(["message" => "No post found"], 404);
+        } else {
+            return response(null, 204);
+        }
     }
 }

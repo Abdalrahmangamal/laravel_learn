@@ -14,4 +14,9 @@ use App\Http\Controllers\api\PostApiController;
 
 // Route::post("/tag",[TagController::class,'create']);
 
-Route::apiResource("/blog",PostApiController::class);
+Route::prefix('v1')->group(function(){
+Route::apiResource("post",PostApiController::class);
+}) ;
+Route::prefix('v1')->group(function(){
+Route::apiResource("post",PostApiController::class);
+}) ;

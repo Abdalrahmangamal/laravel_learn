@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+
 class PostController extends Controller
 {
     /**
@@ -11,9 +12,8 @@ class PostController extends Controller
      */
     public function index()
     {
-          $data=Post::Paginate(10);
-  return view('post.index',[ 'posts'=>$data,"title"=>"Ramadan"]);
-
+        $data = Post::Paginate(10);
+        return view('post.index', ['posts' => $data, "title" => "Ramadan"]);
     }
 
     /**
@@ -21,7 +21,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('post.create',['title'=>"create new post"]);
+        return view('post.create', ['title' => "create new post"]);
     }
 
     /**
@@ -29,8 +29,19 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-                return view('post.edit',['title'=>"edit post"]);
-
+        // validation
+        $validated=$request->validate([
+            'title'=>'required',
+            'body'=>'required',
+            'author'=>'required'
+        ],
+        [
+            'title.required'=>'title is required',
+            'body.required'=>'content is required',
+            'author.required'=>'author is required'
+        ]);
+        // Do operation
+        print_r($request->all());
     }
 
     /**
@@ -38,9 +49,8 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-          $data=Post::findOrFail($id);
-  return view('post.show',['post'=>$data,"title"=>"single post"]);
-
+        $data = Post::findOrFail($id);
+        return view('post.show', ['post' => $data, "title" => "single post"]);
     }
 
     /**
@@ -48,7 +58,7 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('post.edit', ['title' => "edit post"]);
     }
 
     /**
