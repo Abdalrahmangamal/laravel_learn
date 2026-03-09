@@ -16,7 +16,7 @@ class BlogPostRequest extends FormRequest
     public function rules(): array
     {
         return [
-              'title'=>'bail|required|unique:post',
+            'title'=>"bail|required|unique:post,title,{$this->input('id')}",
             'body'=>'required',
             'author'=>'required'
         ];

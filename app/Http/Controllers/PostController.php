@@ -54,15 +54,22 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        return view('post.edit', ['title' => "edit post"]);
+        $post = Post::findOrFail($id); 
+        return view('post.edit', ['post'=>$post,'title' => "edit post"]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(BlogPostRequest $request, string $id)
     {
-        //
+        $post = Post::findOrFail($id); 
+            $post->title=$request->input('title');
+            $post->body=$request->input('body');
+            $post->author=$request->input('author');
+            $post->published=$request->has('published');
+            $post->save();
+            return redirect('/blog')->with('success','post updated successfully!');
     }
 
     /**
@@ -70,6 +77,7 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
-    }
+        $post = Post::findOrFail($id); 
+        $post->delete();
+        return redirect('/blog')->with('success','post deleted successfully!');}
 }
